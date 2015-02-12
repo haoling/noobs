@@ -140,6 +140,13 @@ void MainWindow::populate()
         return;
     }
 
+    if (!QFile::exists(USB_DEVICE))
+    {
+        // USB Storage not ready yet, check back in a tenth of a second
+        QTimer::singleShot(100, this, SLOT(populate()));
+        return;
+    }
+
     /* Ask user to wait while list is populated */
     if (!_allowSilent)
     {
