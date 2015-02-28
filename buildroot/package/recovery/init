@@ -22,6 +22,7 @@ echo 2 >/sys/module/vt/parameters/cur_default
 if grep -q vncinstall /proc/cmdline; then
     # VNC server mode. Mainly useful for making screenshots
     export QWS_DISPLAY="VNC:size=800x600:depth=32:0"
+    ifup eth0
 fi
 
 if grep -q ssh /proc/cmdline; then
