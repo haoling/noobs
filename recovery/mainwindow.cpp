@@ -62,6 +62,9 @@ bool MainWindow::_partInited = false;
 /* Flag to keep track of current display mode. */
 int MainWindow::_currentMode = 0;
 
+/* Flag to retry usb device detect. */
+int MainWindow::_retryUsb = 50;
+
 MainWindow::MainWindow(const QString &defaultDisplay, QSplashScreen *splash, QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow),
@@ -140,9 +143,10 @@ void MainWindow::populate()
         return;
     }
 
-    if (!QFile::exists(USB_DEVICE))
+    if (!QFile::exists(USB_DEVICE) && _retryUsb > 0)
     {
         // USB Storage not ready yet, check back in a tenth of a second
+        _retryUsb--;
         QTimer::singleShot(100, this, SLOT(populate()));
         return;
     }

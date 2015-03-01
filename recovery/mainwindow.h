@@ -42,6 +42,7 @@ protected:
     bool _silent, _allowSilent;
     static bool _partInited;
     static int _currentMode;
+    static int _retryUsb;
     QSplashScreen *_splash;
     QSettings *_settings;
     bool _activatedEth;
